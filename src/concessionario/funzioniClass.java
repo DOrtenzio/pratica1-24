@@ -2,15 +2,15 @@ package concessionario;
 
 public class funzioniClass {
     //aggiunta di una nuova auto
-    public int aggAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
-        index+=1;
+    public static int aggAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
         marca[index]=marcaNuova;
         modello[index]=modelloNuovo;
         prezzo[index]=prezzoNuovo;
+        index+=1;
         return index;
     }
     //Visualizzazione di tutte le auto
-    public String visualizzaAuto (String [] marca,String [] modello,double [] prezzo, int index){
+    public static String visualizzaAuto (String [] marca,String [] modello,double [] prezzo, int index){
         String s="";
         for (int i=0;i<index;i++){
             s=s+marca[i]+"\t"+modello[i]+"\t"+prezzo[i]+"\t\n";
@@ -18,7 +18,7 @@ public class funzioniClass {
         return s;
     }
     // ricerca di un'auto tramite marca e modello
-    public String ricercaMarcaModello(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo){
+    public static String ricercaMarcaModello(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo){
         String s="";
         for (int i=0;i<index;i++){
             if (marca[i].equalsIgnoreCase(marcaNuova) && modello[i].equalsIgnoreCase(modelloNuovo)) {
@@ -30,7 +30,7 @@ public class funzioniClass {
         return s;
     }
     //cancellazione di un'auto
-    public int cancellaAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
+    public static int cancellaAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
         int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
         if (indice==-1) //Se l'auto non esiste
             return index;
@@ -50,7 +50,7 @@ public class funzioniClass {
         }
     }
     // ricerca di un'auto tramite info
-    private int ricercaIndiceAuto(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo, double prezzoNuovo){
+    private static int ricercaIndiceAuto(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo, double prezzoNuovo){
         for (int i=0;i<index;i++){
             if (marca[i].equalsIgnoreCase(marcaNuova) && modello[i].equalsIgnoreCase(modelloNuovo) && prezzo[i]==prezzoNuovo) {
                 return i;
@@ -59,7 +59,7 @@ public class funzioniClass {
         return -1;
     }
     //Modifica
-    public String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
+    public static String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
         int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
         String s="";
         if (indice==-1) //Se l'auto non esiste
@@ -70,5 +70,37 @@ public class funzioniClass {
             prezzo[indice]=prezzoNuovo;
         }
         return "Modificato";
+    }
+    //Visualizzazione di tutte le auto in ordine crescente non modifica in ordine crescente
+    public static String visualizzaAutoCrescente (String [] marca,String [] modello,double [] prezzo, int index){
+        //Variabili d'appoggio
+        String [] marcaAppoggio=new String[index];
+        String [] modelloAppoggio=new String[index];
+        double [] prezzoAppoggio=new double[index];
+        //Riordino
+        for (int i=0;i<index;i++){
+            if(i==0){
+                marcaAppoggio[i]=marca[i];
+                modelloAppoggio[i]=modello[i];
+                prezzoAppoggio[i]=prezzo[i];
+            }else{
+                for (int p=0;p<i;i++){
+                    if (prezzoAppoggio[p]>prezzo[p]){
+                        for (int l=i;l>p;l--){ //Sposto
+                             //Prendo l'elemento prima
+                                marcaAppoggio[l+1]=marcaAppoggio[l];
+                                modelloAppoggio[l+1]=modelloAppoggio[l];
+                                prezzoAppoggio[l+1]=prezzoAppoggio[l];
+                        }
+                        marcaAppoggio[p]=marca[i];
+                        modelloAppoggio[p]=modello[i];
+                        prezzoAppoggio[p]=prezzo[i];
+                        break;
+                    }
+                }
+            }
+        }
+        //Stringa di stampa
+        return visualizzaAuto(marcaAppoggio,modelloAppoggio,prezzoAppoggio,index);
     }
 }
