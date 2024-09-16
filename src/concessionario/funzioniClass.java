@@ -58,4 +58,17 @@ public class funzioniClass {
         }
         return -1;
     }
+    //Modifica
+    public String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
+        int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
+        String s="";
+        if (indice==-1) //Se l'auto non esiste
+            return "Non trovata";
+        else { //Se l'auto esiste
+            marca[indice]=marcaNuova;
+            modello[indice]=modelloNuovo;
+            prezzo[indice]=prezzoNuovo;
+        }
+        return "Modificato";
+    }
 }
