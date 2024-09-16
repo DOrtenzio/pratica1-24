@@ -71,7 +71,6 @@ public class funzioniClass {
         }
         return "Modificato";
     }
-    //Non funziona
     //Visualizzazione di tutte le auto in ordine crescente non modifica in ordine crescente
     public static String visualizzaAutoCrescente (String [] marca,String [] modello,double [] prezzo, int index){
         //Variabili d'appoggio
@@ -85,20 +84,25 @@ public class funzioniClass {
                 modelloAppoggio[i]=modello[i];
                 prezzoAppoggio[i]=prezzo[i];
             }else{
-                for (int p=0;p<i;i++){
-                    if (prezzoAppoggio[p]>prezzo[p]){
-                        for (int l=i;l>p;l--){ //Sposto
-                             //Prendo l'elemento prima
-                                marcaAppoggio[l+1]=marcaAppoggio[l];
-                                modelloAppoggio[l+1]=modelloAppoggio[l];
-                                prezzoAppoggio[l+1]=prezzoAppoggio[l];
-                        }
-                        marcaAppoggio[p]=marca[i];
-                        modelloAppoggio[p]=modello[i];
-                        prezzoAppoggio[p]=prezzo[i];
-                        break;
+                int p;
+                // Cerchiamo la posizione corretta dove inserire l'elemento corrente
+                for (p = 0; p < i; p++) {
+                    if (prezzoAppoggio[p] > prezzo[i]) {
+                        break; // Trovata la posizione dove inserire
                     }
                 }
+
+                // Spostiamo tutti gli elementi per fare spazio al nuovo elemento
+                for (int l = i; l > p; l--) {
+                    marcaAppoggio[l] = marcaAppoggio[l - 1];
+                    modelloAppoggio[l] = modelloAppoggio[l - 1];
+                    prezzoAppoggio[l] = prezzoAppoggio[l - 1];
+                }
+
+                // Inseriamo il nuovo elemento nella posizione corretta
+                marcaAppoggio[p] = marca[i];
+                modelloAppoggio[p] = modello[i];
+                prezzoAppoggio[p] = prezzo[i];
             }
         }
         //Stringa di stampa
