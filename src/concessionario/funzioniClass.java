@@ -59,18 +59,19 @@ public class funzioniClass {
         return -1;
     }
     //Modifica
-    public static String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
+    public static String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo,String marcaNuova1, String modelloNuovo1, double prezzoNuovo1){
         int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
         String s="";
         if (indice==-1) //Se l'auto non esiste
             return "Non trovata";
         else { //Se l'auto esiste
-            marca[indice]=marcaNuova;
-            modello[indice]=modelloNuovo;
-            prezzo[indice]=prezzoNuovo;
+            marca[indice]=marcaNuova1;
+            modello[indice]=modelloNuovo1;
+            prezzo[indice]=prezzoNuovo1;
         }
         return "Modificato";
     }
+    //Non funziona
     //Visualizzazione di tutte le auto in ordine crescente non modifica in ordine crescente
     public static String visualizzaAutoCrescente (String [] marca,String [] modello,double [] prezzo, int index){
         //Variabili d'appoggio
