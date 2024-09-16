@@ -103,4 +103,17 @@ public class funzioniClass {
         //Stringa di stampa
         return visualizzaAuto(marcaAppoggio,modelloAppoggio,prezzoAppoggio,index);
     }
+    //Tutte auto con disel
+    public static String visualizzaAutoDisel (String [] marca,String [] modello,double [] prezzo, int index){
+        String s="";
+        CharSequence d="disel",d1="Disel",d2="DISEL";
+        for (int i=0;i<index;i++){
+            if (modello[i].contains(d) || modello[i].contains(d1) || modello[i].contains(d2)) {
+                s = s + marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n";
+            }
+        }
+        if (s.equalsIgnoreCase(""))
+            s="Non trovate diesel";
+        return s;
+    }
 }
