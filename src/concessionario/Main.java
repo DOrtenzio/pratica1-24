@@ -89,7 +89,7 @@ public class Main {
                 break;
                 case 6:
                     System.out.println("VISUALIZZA TUTTE LE AUTO DISEL");
-                    System.out.println(funzioniClass.visualizzaAutoDisel(marca,modello,prezzo,index));
+                    System.out.println(funzioniClass.visualizzaAutoDiselNoCharSequence(marca,modello,prezzo,index));
                 break;
                 case 7:
                     System.out.println("Buona giornata.");
