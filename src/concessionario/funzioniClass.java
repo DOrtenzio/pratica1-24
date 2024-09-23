@@ -11,11 +11,15 @@ public class funzioniClass {
     }
     //Visualizzazione di tutte le auto
     public static String visualizzaAuto (String [] marca,String [] modello,double [] prezzo, int index){
-        String s="";
-        for (int i=0;i<index;i++){
-            s=s+marca[i]+"\t"+modello[i]+"\t"+prezzo[i]+"\t\n";
+        if (index == 0)
+            return "Nessun'auto trovata";
+        else{
+            String s="";
+            for (int i=0;i<index;i++){
+                s=s+marca[i]+"\t"+modello[i]+"\t"+prezzo[i]+"€\t\n";
+            }
+            return s;
         }
-        return s;
     }
     // ricerca di un'auto tramite marca e modello
     public static String ricercaMarcaModello(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo){
@@ -126,6 +130,8 @@ public class funzioniClass {
         String s="";
         for (int i=0;i<index;i++){
             String[] words = modello[i].split(" ");
+            if (words.length==1)
+                break;
             if (words[1].equalsIgnoreCase("DISEL")) {
                 s = s + marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n";
             }
