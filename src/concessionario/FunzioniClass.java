@@ -51,16 +51,16 @@ public class FunzioniClass {
         }
     }
     //Modifica
-    public static String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo,String marcaNuova1, String modelloNuovo1, double prezzoNuovo1){
+    public static boolean modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo,String marcaNuova1, String modelloNuovo1, double prezzoNuovo1){
         int indice=ricercaMarcaModello(marca,modello,  index, marcaNuova,  modelloNuovo);
         if (indice==-1) //Se l'auto non esiste
-            return "Non trovata";
+            return false;
         else { //Se l'auto esiste
             marca[indice]=marcaNuova1;
             modello[indice]=modelloNuovo1;
             prezzo[indice]=prezzoNuovo1;
         }
-        return "Modificato";
+        return true;
     }
     //Visualizzazione di tutte le auto in ordine crescente non modifica in ordine crescente
     public static String visualizzaAutoCrescente (String [] marca,String [] modello,double [] prezzo, int index){
@@ -68,50 +68,52 @@ public class FunzioniClass {
         String [] marcaAppoggio=new String[index];
         String [] modelloAppoggio=new String[index];
         double [] prezzoAppoggio=new double[index];
-        //Riordino
+        int posmin=0;
+        //Copio
         for (int i=0;i<index;i++){
-            if(i==0){
-                marcaAppoggio[i]=marca[i];
-                modelloAppoggio[i]=modello[i];
-                prezzoAppoggio[i]=prezzo[i];
-            }else{
-                int p;
-                // Cerchiamo la posizione corretta dove inserire l'elemento corrente
-                for (p = 0; p < i; p++) {
-                    if (prezzoAppoggio[p] > prezzo[i]) {
-                        break; // Trovata la posizione dove inserire
-                    }
-                }
-
-                // Spostiamo tutti gli elementi per fare spazio al nuovo elemento
-                for (int l = i; l > p; l--) {
-                    marcaAppoggio[l] = marcaAppoggio[l - 1];
-                    modelloAppoggio[l] = modelloAppoggio[l - 1];
-                    prezzoAppoggio[l] = prezzoAppoggio[l - 1];
-                }
-
-                // Inseriamo il nuovo elemento nella posizione corretta
-                marcaAppoggio[p] = marca[i];
-                modelloAppoggio[p] = modello[i];
-                prezzoAppoggio[p] = prezzo[i];
+            marcaAppoggio[i]=marca[i];
+            modelloAppoggio[i]=modello[i];
+            prezzoAppoggio[i]=prezzo[i];
+        }
+        //Riordino tramite il selection sort
+        for (int l=0;l<index-1;l++){
+            //cerco la posmin
+            for (int g=l+1;g<index;g++){
+                if (prezzoAppoggio[posmin]>prezzoAppoggio[g])
+                    posmin=g;
             }
+            //Scambio
+            scambioArray(marcaAppoggio,modelloAppoggio,prezzoAppoggio,l,posmin);
         }
         //Stringa di stampa
         return visualizzaAuto(marcaAppoggio,modelloAppoggio,prezzoAppoggio,index);
     }
-    //Tutte auto con disel senza CharSequence
+    private static void scambioArray(String [] marcaApp,String [] modelloApp,double [] prezzoApp,int posCorrente,int posMinima){
+        String temp;
+        double temps;
+        //Scambio marca
+        temp=marcaApp[posCorrente];
+        marcaApp[posCorrente]=marcaApp[posMinima];
+        marcaApp[posMinima]=temp;
+        //Scambio modello
+        temp=modelloApp[posCorrente];
+        modelloApp[posCorrente]=modelloApp[posMinima];
+        modelloApp[posMinima]=temp;
+        //Scambio prezzo
+        temps=prezzoApp[posCorrente];
+        prezzoApp[posCorrente]=prezzoApp[posMinima];
+        prezzoApp[posMinima]=temps;
+    }
+    //Tutte auto con disel
     public static String visualizzaAutoDisel(String [] marca, String [] modello, double [] prezzo, int index){
         String s="";
         for (int i=0;i<index;i++){
-            String[] words = modello[i].split(" ");
-            if (words.length==1)
-                break;
-            if (words[1].equalsIgnoreCase("DISEL")) {
+            if (modello[i].indexOf("disel")!=-1 && modello[i].indexOf("Disel")!=-1) {
                 s = s + marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n";
             }
         }
         if (s.equalsIgnoreCase(""))
-            s="Non trovate diesel";
+            s="Non trovate disel";
         return s;
     }
 }

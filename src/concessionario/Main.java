@@ -98,7 +98,10 @@ public class Main {
                         String modello41 = in.nextLine();
                         System.out.println("- Prezzo:");
                         double prezzo41=in.nextDouble();
-                        System.out.println(FunzioniClass.modificaDati(marca,modello,prezzo,index,marca4,modello4,prezzo4,marca41,modello41,prezzo41).toUpperCase()+"\n\n");
+                        if (FunzioniClass.modificaDati(marca,modello,prezzo,index,marca4,modello4,prezzo4,marca41,modello41,prezzo41))
+                            System.out.println("Modificato");
+                        else
+                            System.out.println("Nessun'auto corrispondente trovata");
                     }
                 break;
                 case 5:
