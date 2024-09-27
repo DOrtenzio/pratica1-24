@@ -1,6 +1,6 @@
 package concessionario;
 
-public class funzioniClass {
+public class FunzioniClass {
     //aggiunta di una nuova auto
     public static int aggAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
         marca[index]=marcaNuova;
@@ -22,20 +22,17 @@ public class funzioniClass {
         }
     }
     // ricerca di un'auto tramite marca e modello
-    public static String ricercaMarcaModello(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo){
-        String s="";
+    public static int ricercaMarcaModello(String [] marca,String [] modello, int index,String marcaNuova, String modelloNuovo){
         for (int i=0;i<index;i++){
             if (marca[i].equalsIgnoreCase(marcaNuova) && modello[i].equalsIgnoreCase(modelloNuovo)) {
-                s = s + marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n";
+                return i;
             }
         }
-        if (s.equalsIgnoreCase(""))
-            s="Non trovata";
-        return s;
+        return -1;
     }
     //cancellazione di un'auto
-    public static int cancellaAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo){
-        int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
+    public static int cancellaAuto (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo){
+        int indice=ricercaMarcaModello(marca,modello,  index, marcaNuova,  modelloNuovo);
         if (indice==-1) //Se l'auto non esiste
             return index;
         else { //Se l'auto esiste
@@ -53,19 +50,9 @@ public class funzioniClass {
             return index-1;
         }
     }
-    // ricerca di un'auto tramite info
-    private static int ricercaIndiceAuto(String [] marca,String [] modello,double [] prezzo, int index,String marcaNuova, String modelloNuovo, double prezzoNuovo){
-        for (int i=0;i<index;i++){
-            if (marca[i].equalsIgnoreCase(marcaNuova) && modello[i].equalsIgnoreCase(modelloNuovo) && prezzo[i]==prezzoNuovo) {
-                return i;
-            }
-        }
-        return -1;
-    }
     //Modifica
     public static String modificaDati (String [] marca,String [] modello,double [] prezzo, int index, String marcaNuova, String modelloNuovo, double prezzoNuovo,String marcaNuova1, String modelloNuovo1, double prezzoNuovo1){
-        int indice=ricercaIndiceAuto(marca,modello, prezzo,  index, marcaNuova,  modelloNuovo,  prezzoNuovo);
-        String s="";
+        int indice=ricercaMarcaModello(marca,modello,  index, marcaNuova,  modelloNuovo);
         if (indice==-1) //Se l'auto non esiste
             return "Non trovata";
         else { //Se l'auto esiste
@@ -112,21 +99,8 @@ public class funzioniClass {
         //Stringa di stampa
         return visualizzaAuto(marcaAppoggio,modelloAppoggio,prezzoAppoggio,index);
     }
-    //Tutte auto con disel con CharSequence
-    public static String visualizzaAutoDisel (String [] marca,String [] modello,double [] prezzo, int index){
-        String s="";
-        CharSequence d="disel",d1="Disel",d2="DISEL";
-        for (int i=0;i<index;i++){
-            if (modello[i].contains(d) || modello[i].contains(d1) || modello[i].contains(d2)) {
-                s = s + marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n";
-            }
-        }
-        if (s.equalsIgnoreCase(""))
-            s="Non trovate diesel";
-        return s;
-    }
     //Tutte auto con disel senza CharSequence
-    public static String visualizzaAutoDiselNoCharSequence (String [] marca,String [] modello,double [] prezzo, int index){
+    public static String visualizzaAutoDisel(String [] marca, String [] modello, double [] prezzo, int index){
         String s="";
         for (int i=0;i<index;i++){
             String[] words = modello[i].split(" ");

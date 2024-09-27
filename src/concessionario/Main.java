@@ -36,12 +36,12 @@ public class Main {
                     String modello0 = in.nextLine();
                     System.out.println("- Prezzo:");
                     double prezzo0=in.nextDouble();
-                    index=funzioniClass.aggAuto(marca,modello,prezzo,index,marca0,modello0,prezzo0);
+                    index= FunzioniClass.aggAuto(marca,modello,prezzo,index,marca0,modello0,prezzo0);
                     System.out.println("AUTO AGGIUNTA\n\n\n");
                 break;
                 case 1:
                     System.out.println("VISUALIZZA TUTTE LE AUTO");
-                    System.out.println(funzioniClass.visualizzaAuto(marca,modello,prezzo,index)+"\n");
+                    System.out.println(FunzioniClass.visualizzaAuto(marca,modello,prezzo,index)+"\n");
                 break;
                 case 2:
                     System.out.println("RICERCA AUTO");
@@ -53,7 +53,11 @@ public class Main {
                         String marca2 =in.nextLine();
                         System.out.println("- Modello:");
                         String modello2 = in.nextLine();
-                        System.out.println(funzioniClass.ricercaMarcaModello(marca,modello,prezzo,index,marca2,modello2));
+                        int i=FunzioniClass.ricercaMarcaModello(marca,modello,index,marca2,modello2);
+                        if (i==-1)
+                            System.out.println("Auto non trovata");
+                        else
+                            System.out.println("AUTO TROVATA: "+marca[i] + "\t" + modello[i] + "\t" + prezzo[i] + "\t\n");
                     }
                 break;
                 case 3:
@@ -66,10 +70,8 @@ public class Main {
                         String marca3 =in.nextLine();
                         System.out.println("- Modello:");
                         String modello3 = in.nextLine();
-                        System.out.println("- Prezzo:");
-                        double prezzo3=in.nextDouble();
                         temp=index;
-                        index=funzioniClass.cancellaAuto(marca,modello,prezzo,index,marca3,modello3,prezzo3);
+                        index= FunzioniClass.cancellaAuto(marca,modello,prezzo,index,marca3,modello3);
                         if (index==temp)
                             System.out.println("NESSUN AUTO TROVATA\n");
                         else
@@ -96,7 +98,7 @@ public class Main {
                         String modello41 = in.nextLine();
                         System.out.println("- Prezzo:");
                         double prezzo41=in.nextDouble();
-                        System.out.println(funzioniClass.modificaDati(marca,modello,prezzo,index,marca4,modello4,prezzo4,marca41,modello41,prezzo41).toUpperCase()+"\n\n");
+                        System.out.println(FunzioniClass.modificaDati(marca,modello,prezzo,index,marca4,modello4,prezzo4,marca41,modello41,prezzo41).toUpperCase()+"\n\n");
                     }
                 break;
                 case 5:
@@ -104,14 +106,14 @@ public class Main {
                     if (index==0)
                         System.out.println("NESSUN'AUTO ANCORA REGISTRATA\n");
                     else
-                        System.out.println(funzioniClass.visualizzaAutoCrescente(marca,modello,prezzo,index));
+                        System.out.println(FunzioniClass.visualizzaAutoCrescente(marca,modello,prezzo,index));
                 break;
                 case 6:
                     if (index==0)
                         System.out.println("NESSUN'AUTO ANCORA REGISTRATA\n");
                     else{
                         System.out.println("VISUALIZZA TUTTE LE AUTO DISEL");
-                        System.out.println(funzioniClass.visualizzaAutoDiselNoCharSequence(marca,modello,prezzo,index));
+                        System.out.println(FunzioniClass.visualizzaAutoDisel(marca,modello,prezzo,index));
                     }
                 break;
                 case 7:
